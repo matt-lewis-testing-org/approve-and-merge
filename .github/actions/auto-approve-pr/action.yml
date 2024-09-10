@@ -8,9 +8,12 @@ inputs:
   pr-url:
     description: github pr url created by github actions
     required: true
-  github-secret-token:
-    description: uses github secret token
-    required: false
+  github-secret-key:
+    description: GitHub App Secret
+    required: true
+  github-app-id:
+    description: GitHub App ID
+    required: true
   
 
 runs:
@@ -23,8 +26,8 @@ runs:
       id: github-app
       uses: getsentry/action-github-app-token@v2
       with:
-        app_id: ${{ vars.GH_APPLICATION_ID }}
-        private_key: ${{ secrets.GH_APPLICATION_KEY }}
+        app_id: ${{ inputs.github-app-id }}
+        private_key: ${{ inputs.github-secret-key }}
 
     - name: Get PR number
       shell: bash
