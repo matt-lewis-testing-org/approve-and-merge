@@ -1,0 +1,52 @@
+name: Test to commit changes and make PR
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+  pull-requests: write
+
+jobs:
+  make-chage-and-PR:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Create Branch
+        run: |
+          git fetch
+          git checkout -b pr_update
+          git branch --set-upstream-to=origin/pr_update pr_update || exit 0
+          git pull -ff
+
+      - name: Edit file
+        run: |
+          echo "change to file" >> test.txt
+
+      - name: Commit changes and commit PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.TEST_TOKEN }}
+        run: |
+          git config user.name "GitHub Actions Automation"
+          git config user.email "<>"
+          git commit -am "Updated Service/Cluster Information" || exit 0
+          git push --set-upstream origin pr_update
+  
+          pr_url=$(gh pr create \
+          -B main \
+          -H pr_update \
+          --title 'Update of Service/Cluster Information' \
+          --body 'Created by Github action') || exit 0
+
+          echo "PR_URL=${pr_url}" >> "$GITHUB_ENV"
+
+      - name: auto approve
+        uses: matt-lewis-testing-org/approve-and-merge/.github/actions/auto-approve-pr@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-url: ${{ env.PR_URL }}
+          github-secret-token: ${{ secrets.TEST_TOKEN}}

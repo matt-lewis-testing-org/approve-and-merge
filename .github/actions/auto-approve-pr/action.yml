@@ -1,0 +1,46 @@
+name: Auto approve PR
+description: ""
+
+inputs:
+  github-token:
+    description: github token used for the auto approve PR action
+    required: true
+  pr-url:
+    description: github pr url created by github actions
+    required: true
+  github-secret-token:
+    description: uses github secret token
+    required: false
+  
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Get PR number
+      shell: bash
+      run: |
+        pr_number=$(echo "${{ inputs.pr-url }}" | grep -o -E '[0-9]+$')
+        echo "PR_NUMBER=${pr_number}" >> "$GITHUB_ENV"
+
+    - uses: hmarr/auto-approve-action@v4
+      with:
+        github-token: ${{ inputs.github-token }}
+        pull-request-number: ${{ env.PR_NUMBER }}
+
+    # - name: Wait for Checks
+    #   shell: bash
+    #   run: |
+    #     gh pr status
+    #     gh pr checks ${{ env.PR_NUMBER }} --watch
+      # env:
+      #   GH_TOKEN: ${{ inputs.github-secret-token }}
+
+    - name: Merge PR
+      shell: bash
+      run: |
+        gh pr merge -R ${{ github.repository }} -d -m ${{ env.PR_NUMBER }}
+      env:
+        GH_TOKEN: ${{ inputs.github-secret-token }}
