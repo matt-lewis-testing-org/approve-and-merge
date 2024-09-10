@@ -19,6 +19,13 @@ runs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
+    - name: Get token from github app
+      id: github-app
+      uses: getsentry/action-github-app-token@v2
+      with:
+        app_id: ${{ vars.GH_APPLICATION_ID }}
+        private_key: ${{ secrets.GH_APPLICATION_KEY }}
+
     - name: Get PR number
       shell: bash
       run: |
@@ -43,4 +50,4 @@ runs:
       run: |
         gh pr merge -R ${{ github.repository }} -d -m ${{ env.PR_NUMBER }}
       env:
-        GH_TOKEN: ${{ inputs.github-secret-token }}
+        GH_TOKEN: ${{ steps.github-app.outputs.token }}
