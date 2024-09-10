@@ -37,7 +37,7 @@ runs:
 
     - uses: hmarr/auto-approve-action@v4
       with:
-        github-token: ${{ inputs.github-token }}
+        github-token: ${{ steps.github-app.outputs.token }}
         pull-request-number: ${{ env.PR_NUMBER }}
 
     # - name: Wait for Checks
@@ -53,4 +53,4 @@ runs:
       run: |
         gh pr merge -R ${{ github.repository }} -d -m ${{ env.PR_NUMBER }}
       env:
-        GH_TOKEN: ${{ steps.github-app.outputs.token }}
+        GH_TOKEN: ${{ inputs.github-token }}
