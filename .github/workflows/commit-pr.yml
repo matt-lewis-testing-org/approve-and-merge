@@ -51,3 +51,4 @@ jobs:
           pr-url: ${{ env.PR_URL }}
           github-secret-key: ${{ secrets.GH_APPLICATION_KEY}}
           github-app-id: ${{ vars.GH_APPLICATION_ID }}
+          github-test-token: ${{ secrets.MIKEMATT_TEST_TOKEN }}
