@@ -14,6 +14,9 @@ inputs:
   github-app-id:
     description: GitHub App ID
     required: true
+  github-test-token:
+    description: GitHub mikematt33 RO Token
+    required: false
   
 
 runs:
@@ -37,7 +40,8 @@ runs:
 
     - uses: hmarr/auto-approve-action@v4
       with:
-        github-token: ${{ steps.github-app.outputs.token }}
+        github-token: ${{ inputs.github-test-token }}
+        # github-token: ${{ steps.github-app.outputs.token }}
         pull-request-number: ${{ env.PR_NUMBER }}
 
     # - name: Wait for Checks
