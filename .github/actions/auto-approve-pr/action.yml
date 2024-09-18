@@ -52,7 +52,8 @@ runs:
       shell: bash
       run: |
         # gh pr status
-        gh pr checks ${{ env.PR_NUMBER }} --base main
+        git checkout main
+        gh pr checks ${{ env.PR_NUMBER }}
       env:
         GH_TOKEN: ${{ inputs.github-token }}
 
