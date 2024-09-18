@@ -54,7 +54,7 @@ runs:
         gh pr status
         gh pr checks ${{ env.PR_NUMBER }}
       env:
-        GH_TOKEN: ${{ inputs.github-secret-token }}
+        GH_TOKEN: ${{ inputs.github-token }}
 
     - name: Merge PR
       shell: bash
