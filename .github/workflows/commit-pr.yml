@@ -27,9 +27,16 @@ jobs:
         run: |
           echo "change to file" >> test.txt
 
+      - name: Get token from github app
+        id: github-app
+        uses: getsentry/action-github-app-token@v2
+        with:
+          app_id: ${{ vars.GH_APPLICATION_ID }}
+          private_key: ${{ secrets.GH_APPLICATION_KEY }}
+
       - name: Commit changes and commit PR
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.github-app.outputs.token }}
         run: |
           git config user.name "GitHub Actions Automation"
           git config user.email "<>"
