@@ -54,7 +54,7 @@ jobs:
       - name: auto approve
         uses: matt-lewis-testing-org/approve-and-merge/.github/actions/auto-approve-pr@main
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.github-app.outputs.token }}
           pr-url: ${{ env.PR_URL }}
           github-secret-key: ${{ secrets.GH_APPLICATION_KEY}}
           github-app-id: ${{ vars.GH_APPLICATION_ID }}
