@@ -23,4 +23,6 @@ jobs:
           # [Required] Access token with `workflow` scope.
           token: ${{ inputs.gh_token }}
           update_version_with: 'default-branch-sha'
-          ignore: 'saadmk11/github-actions-version-updater@70836b4e54a00bab1eee59184cbc74803b72d98f'
+          ignore: 'actions/checkout@v4'
+          pull_request_title: 'Updating actions from hpe-cds/reusable-actions to newest SHA'
+          pull_request_branch: "actions-update"
