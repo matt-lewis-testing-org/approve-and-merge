@@ -36,7 +36,8 @@ jobs:
       id: update-actions
       run: |
         for action_name in ${{ env.ACTIONS_LIST }}; do
-          search_dir=".github/workflows"
+          current_path = $(pwd)
+          search_dir="$current_path.github/workflows"
           search_string="matt-lewis-testing-org/reusable-actions/.github/actions/$action_name@"
           # Replace above org
 
@@ -48,6 +49,6 @@ jobs:
           done
         done
     
-    - name: testing action change
-      run: |
-        cat 
+    # - name: testing action change
+    #   run: |
+    #     cat 
