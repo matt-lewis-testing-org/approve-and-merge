@@ -1,0 +1,20 @@
+name: update actions
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-actions:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # [Required] Access token with `workflow` scope.
+          token: ${{ secrets.MIKEMATT_TEST_TOKEN }}
+
+      - name: Run GitHub Actions Version Updater
+        uses: saadmk11/github-actions-version-updater@v0.8.1
+        with:
+          # [Required] Access token with `workflow` scope.
+          token: ${{ secrets.MIKEMATT_TEST_TOKEN }}
