@@ -46,8 +46,8 @@ jobs:
           file_list=$(grep -rl "$search_string" "$search_dir")
 
           for file in $file_list; do
-            sed -i "s/\($search_string *\).*/\1$${{ env.UPDATED_SHA }}/" "$file"
-            cat $file
+            sed -i "s|$search_string *.*|$search_string ${{ env.UPDATED_SHA }}|" "$file"
+            cat "$file"
           done
         done
     
