@@ -45,9 +45,9 @@ jobs:
 
           file_list=$(grep -rl "$search_string" "$search_dir")
 
-          echo "Action name: $action_name"
           for file in $file_list; do
-            echo "File that contains $action_name action: $file"
+            sed -i "s/\($search_string *\).*/\1$${{ env.UPDATED_SHA }}/" "$file"
+            cat $file
           done
         done
     
