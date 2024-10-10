@@ -37,7 +37,7 @@ jobs:
       run: |
         for action_name in ${{ env.ACTIONS_LIST }}; do
           current_path = $(pwd)
-          search_dir="$current_path.github/workflows"
+          search_dir="$current_path/.github/workflows"
           search_string="matt-lewis-testing-org/reusable-actions/.github/actions/$action_name@"
           # Replace above org
 
