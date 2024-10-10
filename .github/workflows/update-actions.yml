@@ -51,7 +51,7 @@ jobs:
           echo "action name: '$action_name'"
           
           for file in $file_list; do
-            sed -i "s|$search_string\s*.*|$search_string ${{ env.UPDATED_SHA }}|" "$file"
+            sed -i "s|$search_string\s\+.*|$search_string ${{ env.UPDATED_SHA }}|" "$file"
             # sed -i "s|$search_string|${{ env.UPDATED_SHA }}|g" "$file"
             cat "$file"
           done
