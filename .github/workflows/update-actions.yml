@@ -14,7 +14,7 @@ jobs:
           token: ${{ secrets.LEWISM20_GH_TOKEN }}
 
       - name: Run GitHub Actions Version Updater
-        uses: saadmk11/github-actions-version-updater@c18e2a1b1a95d0c5c63af210857e8718a479f56f
+        uses: saadmk11/github-actions-version-updater@70836b4e54a00bab1eee59184cbc74803b72d98f
         with:
           # [Required] Access token with `workflow` scope.
           token: ${{ secrets.LEWISM20_GH_TOKEN }}
