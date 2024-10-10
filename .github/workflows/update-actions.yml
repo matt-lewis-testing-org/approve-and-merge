@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.1
         with:
           # [Required] Access token with `workflow` scope.
           token: ${{ secrets.LEWISM20_GH_TOKEN }}
 
       - name: Run GitHub Actions Version Updater
-        uses: saadmk11/github-actions-version-updater@70836b4e54a00bab1eee59184cbc74803b72d98f
+        uses: saadmk11/github-actions-version-updater@v0.8.1
         with:
           # [Required] Access token with `workflow` scope.
           token: ${{ secrets.LEWISM20_GH_TOKEN }}

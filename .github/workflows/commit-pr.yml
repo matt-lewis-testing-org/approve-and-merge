@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.2.1
 
       - name: Create Branch
         run: |
@@ -29,7 +29,7 @@ jobs:
 
       - name: Get token from github app
         id: github-app
-        uses: getsentry/action-github-app-token@v2
+        uses: getsentry/action-github-app-token@v3.0.0
         with:
           app_id: ${{ vars.GH_APPLICATION_ID }}
           private_key: ${{ secrets.GH_APPLICATION_KEY }}
