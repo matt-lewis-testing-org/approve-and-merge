@@ -52,7 +52,7 @@ jobs:
           
           for file in $file_list; do
             # sed -i "s|$search_string *.*|$search_string ${{ env.UPDATED_SHA }}|" "$file"
-            sed -i "s/$search_string/${{ env.UPDATED_SHA }}/g" "$file"
+            sed -i "s|$search_string|${{ env.UPDATED_SHA }}|g" "$file"
             cat "$file"
           done
         done
