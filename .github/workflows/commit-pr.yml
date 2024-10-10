@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871
 
       - name: Create Branch
         run: |
@@ -29,7 +29,7 @@ jobs:
 
       - name: Get token from github app
         id: github-app
-        uses: getsentry/action-github-app-token@v2
+        uses: getsentry/action-github-app-token@a0061014b82a6a5d6aeeb3b824aced47e3c3a7ef
         with:
           app_id: ${{ vars.GH_APPLICATION_ID }}
           private_key: ${{ secrets.GH_APPLICATION_KEY }}
@@ -52,7 +52,7 @@ jobs:
           echo "PR_URL=${pr_url}" >> "$GITHUB_ENV"
 
       - name: auto approve
-        uses: matt-lewis-testing-org/approve-and-merge/.github/actions/auto-approve-pr@main
+        uses: matt-lewis-testing-org/approve-and-merge/.github/actions/auto-approve-pr@893e31679ede90305a81625621dc7e95ec096fb9
         with:
           github-token: ${{ steps.github-app.outputs.token }}
           pr-url: ${{ env.PR_URL }}

@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: output test
-      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@cb79f4bbdd89c590967d2299e0a6b4da84e585b6
+      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@2b52a0ebe1fa834ebf35f8efe1ddcf28d7272e77
