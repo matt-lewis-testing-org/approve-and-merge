@@ -18,3 +18,4 @@ jobs:
         with:
           # [Required] Access token with `workflow` scope.
           token: ${{ secrets.LEWISM20_GH_TOKEN }}
+          update_version_with: 'default-branch-sha'
