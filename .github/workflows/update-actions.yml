@@ -15,11 +15,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           # [Required] Access token with `workflow` scope.
-          token: ${{ secrets.gh_token }}
+          token: ${{ inputs.gh_token }}
 
       - name: Run GitHub Actions Version Updater
         uses: saadmk11/github-actions-version-updater@70836b4e54a00bab1eee59184cbc74803b72d98f
         with:
           # [Required] Access token with `workflow` scope.
-          token: ${{ secrets.gh_token }}
+          token: ${{ inputs.gh_token }}
           update_version_with: 'default-branch-sha'
