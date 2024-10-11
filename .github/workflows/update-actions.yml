@@ -70,9 +70,9 @@ jobs:
       run: |
         updated_sha=${{ env.UPDATED_SHA }}
 
-        ACTIONs_LIST=$(echo "${{ env.ACTIONS }}" | tr ',' '\n')
+        ACTIONS_LIST=$(echo "${{ env.ACTIONS }}" | tr ',' '\n')
         
-        for action_name in $ACTION_LIST; do
+        for action_name in $ACTIONS_LIST; do
           search_dir="./.github/workflows"
           search_string="matt-lewis-testing-org/reusable-actions/.github/actions/$action_name@"
           # Replace above org
