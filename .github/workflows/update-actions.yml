@@ -59,7 +59,10 @@ jobs:
         rm response.json
         
         echo "SHA: $SHA"
-        echo "Actions List: $ACTIONS_LIST"
+        echo "Actions List: "
+        for action in $ACTIONS_LIST; do
+          echo "Actions: $action"
+        done
         
         echo "ACTIONS_LIST=$ACTIONS" >> "$GITHUB_ENV"
         echo "UPDATED_SHA=$SHA" >> "$GITHUB_ENV"
