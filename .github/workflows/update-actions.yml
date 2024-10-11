@@ -71,7 +71,7 @@ jobs:
         updated_sha=${{ env.UPDATED_SHA }}
 
         ACTIONS_LIST=$(echo "${{ env.ACTIONS }}" | tr ',' '\n')
-        changes_summary="## Updated Actions\n"
+        changes_summary="## Updated Actions"
         
         for action_name in $ACTIONS_LIST; do
           search_dir="./.github/workflows"
@@ -86,7 +86,7 @@ jobs:
             for file in $file_list; do
               sed -i "s|${search_string}[[:space:]]*.*|${search_string}${updated_sha}|" "$file"
               cat "$file"
-              changes_summary+="- **$action_name** updated in file: \`$file\`\n"
+              changes_summary="${changes_summary}\n- **$action_name** updated in file: \`$file\`\n"
               echo "ACTION_PRESENT=true" >> "$GITHUB_ENV"
             done
           else
@@ -95,7 +95,9 @@ jobs:
           fi
         done
 
-        echo "CHANGES_SUMMARY=$changes_summary" >> "$GITHUB_ENV"
+        echo "CHANGES_SUMMARY<<EOF" >> "$GITHUB_ENV"
+        echo -e "$changes_summary" >> "$GITHUB_ENV"
+        echo "EOF" >> "$GITHUB_ENV"
       
     - name: Commit changes and commit PR
       if: env.ACTION_PRESENT != 'false' && env.ACTIONS != ''
