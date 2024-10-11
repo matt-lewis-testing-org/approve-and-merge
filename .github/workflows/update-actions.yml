@@ -52,6 +52,9 @@ jobs:
 
         ACTIONS=$(jq -r '.files[].filename' response.json | grep '.github/actions/.*/action.yml$' | awk -F'/' '{print $3}')
 
+        # Clean up
+        rm response.json
+        
         echo "SHA: $SHA"
         echo "Actions List: $ACTIONS_LIST"
         
