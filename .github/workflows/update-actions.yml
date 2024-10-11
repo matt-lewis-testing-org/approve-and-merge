@@ -80,21 +80,21 @@ jobs:
 
           file_list=$(grep -rl "$search_string" "$search_dir") || file_list=""
 
-          echo "action name: '$action_name'"
-
           if [ ! -z "$file_list" ]; then
+            changes_summary="${changes_summary}\n- **$action_name:"
             for file in $file_list; do
               sed -i "s|${search_string}[[:space:]]*.*|${search_string}${updated_sha}|" "$file"
               cat "$file"
-              changes_summary="${changes_summary}\n- **$action_name** updated in file: \`$file\`\n"
-              echo "ACTION_PRESENT=true" >> "$GITHUB_ENV"
+              changes_summary="${changes_summary}\n  - $file"
             done
+            echo "ACTION_PRESENT=true" >> "$GITHUB_ENV"
           else
             echo "Action not used in any workflows."
             echo "ACTION_PRESENT=false" >> "$GITHUB_ENV"
           fi
         done
 
+        # Escape newlines for GitHub Actions
         echo "CHANGES_SUMMARY<<EOF" >> "$GITHUB_ENV"
         echo -e "$changes_summary" >> "$GITHUB_ENV"
         echo "EOF" >> "$GITHUB_ENV"
