@@ -33,6 +33,9 @@ jobs:
         git checkout -b ${{ env.BRANCH_NAME }}
         git branch --set-upstream-to=origin/${{ env.BRANCH_NAME }} ${{ env.BRANCH_NAME }} || exit 0
         git pull -ff
+
+        git branch
+        git rev-parse --abbrev-ref HEAD
     
     - name: get initial info
       env:
