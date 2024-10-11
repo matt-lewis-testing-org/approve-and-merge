@@ -81,7 +81,7 @@ jobs:
           file_list=$(grep -rl "$search_string" "$search_dir") || file_list=""
 
           if [ ! -z "$file_list" ]; then
-            changes_summary="${changes_summary}\n- **$action_name:"
+            changes_summary="${changes_summary}\n- **$action_name:**"
             for file in $file_list; do
               sed -i "s|${search_string}[[:space:]]*.*|${search_string}${updated_sha}|" "$file"
               cat "$file"
