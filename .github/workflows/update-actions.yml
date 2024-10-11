@@ -41,6 +41,8 @@ jobs:
     - name: update actions
       id: update-actions
       run: |
+        updated_sha=${{ env.UPDATED_SHA }}
+        
         for action_name in ${{ env.ACTIONS_LIST }}; do
           search_dir="./.github/workflows"
           search_string="matt-lewis-testing-org/reusable-actions/.github/actions/$action_name@"
@@ -51,7 +53,7 @@ jobs:
           echo "action name: '$action_name'"
           
           for file in $file_list; do
-            sed -i "'s/\($search_string\).*/\1 ${{ env.UPDATED_SHA}}'" "$file"
+            sed -i "s/\(${search_string}\).*/\1 ${updated_sha}" "$file"
             cat "$file"
           done
         done
