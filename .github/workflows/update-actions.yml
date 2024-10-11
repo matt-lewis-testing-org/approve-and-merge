@@ -69,6 +69,7 @@ jobs:
 
     - name: update actions
       id: update-actions
+      if: env.ACTIONS_LIST != ''
       run: |
         updated_sha=${{ env.UPDATED_SHA }}
         
@@ -83,11 +84,17 @@ jobs:
           
           for file in $file_list; do
             sed -i "s|${search_string}[[:space:]]*.*|${search_string}${updated_sha}|" "$file"
+
+            if [ $? -ne 0 ]; then
+              echo "Action not used in any workflows."
+            fi
+            
             cat "$file"
           done
         done
-    
+      
     - name: Commit changes and commit PR
+      if: env.ACTIONS_LIST != ''
       env:
         GITHUB_TOKEN: ${{ inputs.gh_token }}
       run: |
@@ -103,3 +110,8 @@ jobs:
         --body 'Created by Github action') || exit 0
 
         echo "PR_URL=${pr_url}" >> "$GITHUB_ENV"
+
+    - name: Message if no actions were changed
+      if: env.ACTIONS_LIST == ''
+      run: |
+        echo "List of actions needing to be changed is empty, no files updated."
