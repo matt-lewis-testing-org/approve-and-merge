@@ -13,6 +13,20 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    - name: Randomize Branch
+      run: |
+        random_number="$((RANDOM % 999999999999999))"
+        branch_name="update_actions_${random_number}"
+
+        echo "BRANCH_NAME=$branch_name" >> "$GITHUB_ENV"
+
+    - name: Create Branch
+      run: |
+        git fetch
+        git checkout -b ${{ env.BRANCH_NAME }}
+        git branch --set-upstream-to=origin/${{ env.BRANCH_NAME }} ${{ env.BRANCH_NAME }} || exit 0
+        git pull -ff
     
     - name: get initial info
       env:
@@ -58,6 +72,19 @@ jobs:
           done
         done
     
-    # - name: testing action change
-    #   run: |
-    #     cat 
+    - name: Commit changes and commit PR
+      env:
+        GITHUB_TOKEN: ${{ inputs.gh_token }}
+      run: |
+        git config user.name "Updating GitHub Actions"
+        git config user.email "<>"
+        git commit -am "Updated Actions to newest SHA" || exit 0
+        git push --set-upstream origin ${{ env.BRANCH_NAME }}
+
+        pr_url=$(gh pr create \
+        -B main \
+        -H pr_update \
+        --title 'Update of GitHub Actions SHA' \
+        --body 'Created by Github action') || exit 0
+
+        echo "PR_URL=${pr_url}" >> "$GITHUB_ENV"
