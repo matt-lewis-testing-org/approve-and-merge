@@ -53,7 +53,7 @@ jobs:
           echo "action name: '$action_name'"
           
           for file in $file_list; do
-            sed -i "s/\(${search_string}\).*/\1 ${updated_sha}" "$file"
+            sed -i '' "s/\(${search_string}\).*/\1 ${updated_sha}" "$file"
             cat "$file"
           done
         done
