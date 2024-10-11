@@ -98,7 +98,7 @@ jobs:
 
         pr_url=$(gh pr create \
         -B main \
-        -H pr_update \
+        -H ${{ env.BRANCH_NAME }} \
         --title 'Update of GitHub Actions SHA' \
         --body 'Created by Github action') || exit 0
 
