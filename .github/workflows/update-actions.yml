@@ -78,22 +78,24 @@ jobs:
           search_string="matt-lewis-testing-org/reusable-actions/.github/actions/$action_name@"
           # Replace above org
 
-          file_list=$(grep -rl "$search_string" "$search_dir")
+          file_list=$(grep -rl "$search_string" "$search_dir") || file_list=''
 
           echo "action name: '$action_name'"
-          
-          for file in $file_list; do
-            if sed -i "s|${search_string}[[:space:]]*.*|${search_string}${updated_sha}|" "$file"; then
+
+          if [ ! -z "$file_list" ];
+            for file in $file_list; do
+              sed -i "s|${search_string}[[:space:]]*.*|${search_string}${updated_sha}|" "$file"
               cat "$file"
-            else
-              echo "Action not used in any workflows."
-            fi
-          
-          done
+              echo "ACTION_PRESENT=true" >> "$GITHUB_ENV"
+            done
+          else
+            echo "Action not used in any workflows."
+            echo "ACTION_PRESENT=false" >> "$GITHUB_ENV"
+          fi
         done
       
     - name: Commit changes and commit PR
-      if: env.ACTIONS_LIST != ''
+      if: env.ACTION_PRESENT != 'false' && env.ACTIONS_LIST != ''
       env:
         GITHUB_TOKEN: ${{ inputs.gh_token }}
       run: |
