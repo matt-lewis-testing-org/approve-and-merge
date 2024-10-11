@@ -53,7 +53,7 @@ jobs:
           /repos/matt-lewis-testing-org/reusable-actions/commits/$SHA > response.json 
         # Replace above org
 
-        ACTIONS=$(jq -r '.files[].filename' response.json | grep '.github/actions/.*/action.yml$' | awk -F'/' '{print $3}')
+        ACTIONS=$(jq -r '.files[].filename' response.json | grep '.github/actions/.*/action.yml$' | awk -F'/' '{print $3}' | paste -sd "," -)
 
         # Clean up
         rm response.json
@@ -61,16 +61,18 @@ jobs:
         echo "SHA: $SHA"
         echo "Actions List: $ACTIONS"
         
-        echo "ACTIONS_LIST=$ACTIONS" >> "$GITHUB_ENV"
+        echo "ACTIONS=$ACTIONS" >> "$GITHUB_ENV"
         echo "UPDATED_SHA=$SHA" >> "$GITHUB_ENV"
 
     - name: update actions
       id: update-actions
-      if: env.ACTIONS_LIST != ''
+      if: env.ACTIONS != ''
       run: |
         updated_sha=${{ env.UPDATED_SHA }}
+
+        ACTIONs_LIST=$(echo "${{ env.ACTIONS }}" | tr ',' '\n')
         
-        for action_name in ${{ env.ACTIONS_LIST }}; do
+        for action_name in $ACTION_LIST; do
           search_dir="./.github/workflows"
           search_string="matt-lewis-testing-org/reusable-actions/.github/actions/$action_name@"
           # Replace above org
@@ -92,7 +94,7 @@ jobs:
         done
       
     - name: Commit changes and commit PR
-      if: env.ACTION_PRESENT != 'false' && env.ACTIONS_LIST != ''
+      if: env.ACTION_PRESENT != 'false' && env.ACTIONS != ''
       env:
         GITHUB_TOKEN: ${{ inputs.gh_token }}
       run: |
@@ -110,6 +112,6 @@ jobs:
         echo "PR_URL=${pr_url}" >> "$GITHUB_ENV"
 
     - name: Message if no actions were changed
-      if: env.ACTIONS_LIST == ''
+      if: env.ACTIONS == ''
       run: |
         echo "List of actions needing to be changed is empty, no files updated."
