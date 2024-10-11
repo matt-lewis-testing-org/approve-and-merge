@@ -12,4 +12,4 @@ jobs:
     steps:
     - run: sleep 30s
     - name: output test
-      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@cb79f4bbdd89c590967d2299e0a6b4da84e585b6
+      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@67b5f39d01be0ed720d6839e5bfd302f8d811b07
