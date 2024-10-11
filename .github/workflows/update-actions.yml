@@ -16,12 +16,14 @@ jobs:
 
     - name: Randomize Branch
       run: |
-        random_number="$((RANDOM % 999999999999999))"
+        random_number="$((RANDOM % 99999))"
         branch_name="update_actions_${random_number}"
 
         echo "BRANCH_NAME=$branch_name" >> "$GITHUB_ENV"
 
     - name: Create Branch
+      env:
+        GITHUB_TOKEN: ${{ secrets.MIKEMATT_TEST_TOKEN }}
       run: |
         git fetch
         git checkout -b ${{ env.BRANCH_NAME }}
