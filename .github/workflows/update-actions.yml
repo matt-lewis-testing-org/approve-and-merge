@@ -116,6 +116,7 @@ jobs:
         echo "PR_URL=${pr_url}" >> "$GITHUB_ENV"
 
     - name: Message if no actions were changed
-      if: env.ACTIONS == ''
+      if: env.ACTIONS == '' || env.ACTION_PRESENT == 'false'
       run: |
-        echo "List of actions needing to be changed is empty, no files updated."
+        echo "List of actions needing to be changed is empty, no files updated. Deleting made branch"
+        git push origin --delete ${{ env.BRANCH_NAME }}
