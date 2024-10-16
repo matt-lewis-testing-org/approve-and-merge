@@ -10,4 +10,4 @@ jobs:
     - name: output test
       uses: matt-lewis-testing-org/reusable-actions/.github/actions/example-action@674f1539c562e17741156da45ff2ab31b20b886a
     - name: example test
-      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@674f1539c562e17741156da45ff2ab31b20b886a
+      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@c402830a4e2bdad3c323b847f71649ea8fb3e41c

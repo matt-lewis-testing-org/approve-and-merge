@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: output test
-      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@cb79f4bbdd89c590967d2299e0a6b4da84e585b6
+      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@c402830a4e2bdad3c323b847f71649ea8fb3e41c
 
     - run: echo "test"
 
     - name: output test
-      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@cb79f4bbdd89c590967d2299e0a6b4da84e585b6
+      uses: matt-lewis-testing-org/reusable-actions/.github/actions/test-action@c402830a4e2bdad3c323b847f71649ea8fb3e41c
