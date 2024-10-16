@@ -81,9 +81,10 @@ jobs:
           if [ -n "$file_list" ]; then
             changes_summary="${changes_summary}\n- **$action_name:**"
             for file in $file_list; do
+              old_sha=$(grep "$search_string" "$file" | sed "s/.*@//") 
               sed -i "s|${search_string}[[:space:]]*.*|${search_string}${updated_sha}|" "$file"
               cat "$file"
-              changes_summary="${changes_summary}\n  - $file"
+              changes_summary="${changes_summary}\n  - $file: Replaced SHA - $old_sha -> $updated_sha"
             done
             echo "ACTION_PRESENT=true" >> "$GITHUB_ENV"
           else
