@@ -1,0 +1,15 @@
+name: Stale PRs
+on:
+  workflow_dispatch:
+  
+jobs:
+  handle_stale_prs:
+    name: handle stale PRs
+    uses: hpe-cds/reusable-workflows/.github/workflows/utility-stale-prs.yml@main
+    secrets: inherit
+    permissions:
+      issues: write
+      pull-requests: write
+    with:
+      warn_max_days: 30
+      close_max_days: 60
