@@ -48,7 +48,7 @@ jobs:
         gh api \
           -H "Accept: application/vnd.github+json" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          /repos/matt-lewis-testing-org/reusable-actions/commits/$SHA > response.json 
+          /repos/matt-lewis-testing-org/reusable-actions/commits/${SHA} > response.json 
         # Replace above org
 
         ACTIONS=$(jq -r '.files[].filename' response.json | grep '.github/actions/.*/action.yml$' | awk -F'/' '{print $3}' | paste -sd "," -)
@@ -78,7 +78,7 @@ jobs:
 
           file_list=$(grep -rl "$search_string" "$search_dir") || file_list=""
 
-          if [ ! -z "$file_list" ]; then
+          if [ -n "$file_list" ]; then
             changes_summary="${changes_summary}\n- **$action_name:**"
             for file in $file_list; do
               sed -i "s|${search_string}[[:space:]]*.*|${search_string}${updated_sha}|" "$file"
@@ -93,9 +93,10 @@ jobs:
         done
 
         # Escape newlines for GitHub Actions
-        echo "CHANGES_SUMMARY<<EOF" >> "$GITHUB_ENV"
-        echo -e "$changes_summary" >> "$GITHUB_ENV"
-        echo "EOF" >> "$GITHUB_ENV"
+        # echo "CHANGES_SUMMARY<<EOF" >> "$GITHUB_ENV"
+        # echo -e "$changes_summary" >> "$GITHUB_ENV"
+        # echo "EOF" >> "$GITHUB_ENV"
+        { echo "CHANGES_SUMMARY<<EOF"; echo "$changes_summary"; echo "EOF"; } >> "$GITHUB_ENV"
       
     - name: Commit changes and commit PR
       if: env.ACTION_PRESENT != 'false' && env.ACTIONS != ''
