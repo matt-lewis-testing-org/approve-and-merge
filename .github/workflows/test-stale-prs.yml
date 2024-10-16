@@ -5,7 +5,7 @@ on:
 jobs:
   handle_stale_prs:
     name: handle stale PRs
-    uses: hpe-cds/reusable-workflows/.github/workflows/utility-stale-prs.yml@main
+    uses: matt-lewis-testing-org/reusable-actions/.github/workflows/utility-stale-prs.yml@main
     secrets: inherit
     permissions:
       issues: write
