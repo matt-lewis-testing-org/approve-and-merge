@@ -96,7 +96,11 @@ jobs:
         # echo "CHANGES_SUMMARY<<EOF" >> "$GITHUB_ENV"
         # echo -e "$changes_summary" >> "$GITHUB_ENV"
         # echo "EOF" >> "$GITHUB_ENV"
-        { echo "CHANGES_SUMMARY<<EOF"; echo "$changes_summary"; echo "EOF"; } >> "$GITHUB_ENV"
+        { 
+          echo "CHANGES_SUMMARY<<EOF"
+          echo -e "$changes_summary"
+          echo "EOF"
+        } >> "$GITHUB_ENV"
       
     - name: Commit changes and commit PR
       if: env.ACTION_PRESENT != 'false' && env.ACTIONS != ''
