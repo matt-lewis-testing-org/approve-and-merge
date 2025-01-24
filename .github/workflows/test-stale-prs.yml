@@ -6,8 +6,8 @@ jobs:
   handle_stale_prs:
     runs-on: ubuntu-latest
     steps:
-      # - name: Checkout project
-      #   uses: actions/checkout@v4
+      - name: Checkout project
+        uses: actions/checkout@v4
       - name: Checkout SSO Broker Repo
         uses: actions/checkout@v4
         with:
@@ -15,4 +15,4 @@ jobs:
             path: ./approve-and-merge
             token: ${{ secrets.LEWISM20_GH_TOKEN }}
             ref: random-stuff
-            submodules: true 
+            # submodules: true 
