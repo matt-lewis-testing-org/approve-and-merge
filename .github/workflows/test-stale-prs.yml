@@ -20,5 +20,5 @@ jobs:
             repository: matt-lewis-testing-org/approve-and-merge
             path: ./approve-and-merge
             token: ${{ secrets.LEWISM20_GH_TOKEN }}
-            ref: main
+            ref: random-name
             submodules: true 
