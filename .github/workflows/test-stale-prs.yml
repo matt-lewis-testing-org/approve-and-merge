@@ -4,8 +4,6 @@ on:
   
 jobs:
   handle_stale_prs:
-    env:
-      ACTIONS_STEP_DEBUG: true
     runs-on: ubuntu-latest
     steps:
       - name: Login to GitHub Container Registry
@@ -16,11 +14,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout project
         uses: actions/checkout@v4
-      - name: Checkout SSO Broker Repo
-        uses: actions/checkout@v4
         with:
-            repository: matt-lewis-testing-org/approve-and-merge
-            path: ./approve-and-merge
-            token: ${{ secrets.MIKEMATT_TEST_TOKEN }}
-            ref: main
-            submodules: false 
+          submodules: true
+      # - name: Checkout SSO Broker Repo
+      #   uses: actions/checkout@v4
+      #   with:
+      #       repository: matt-lewis-testing-org/approve-and-merge
+      #       path: ./approve-and-merge
+      #       token: ${{ secrets.MIKEMATT_TEST_TOKEN }}
+      #       ref: main
+      #       submodules: false 
