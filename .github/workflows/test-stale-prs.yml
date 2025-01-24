@@ -4,6 +4,8 @@ on:
   
 jobs:
   handle_stale_prs:
+    env:
+      ACTIONS_STEP_DEBUG: true
     runs-on: ubuntu-latest
     steps:
       - name: Login to GitHub Container Registry
