@@ -4,12 +4,15 @@ on:
   
 jobs:
   handle_stale_prs:
-    name: handle stale PRs
-    uses: matt-lewis-testing-org/reusable-actions/.github/workflows/utility-stale-prs.yml@main
-    secrets: inherit
-    permissions:
-      issues: write
-      pull-requests: write
-    with:
-      warn_max_days: 30
-      close_max_days: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+      - name: Checkout SSO Broker Repo
+        uses: actions/checkout@v4
+        with:
+            repository: matt-lewis-testing-org/approve-and-merge
+            path: ./approve-and-merge
+            token: ${{ secrets.LEWISM20_GH_TOKEN }}
+            ref: ft-CI-setup
+            submodules: true 
