@@ -21,6 +21,6 @@ jobs:
         with:
             repository: matt-lewis-testing-org/approve-and-merge
             path: ./approve-and-merge
-            token: ${{ secrets.LEWISM20_GH_TOKEN }}
+            token: ${{ secrets.MIKEMATT_TEST_TOKEN }}
             ref: main
             submodules: false 
