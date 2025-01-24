@@ -12,8 +12,8 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Checkout project
-      #   uses: actions/checkout@v4
+      - name: Checkout project
+        uses: actions/checkout@v4
       - name: Checkout SSO Broker Repo
         uses: actions/checkout@v4
         with:
