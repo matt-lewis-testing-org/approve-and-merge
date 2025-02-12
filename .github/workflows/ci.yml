@@ -2,6 +2,9 @@ name: CI Example
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - 'test-**'
 
 jobs:
   wait:
