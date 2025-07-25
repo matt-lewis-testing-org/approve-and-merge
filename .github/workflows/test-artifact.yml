@@ -1,0 +1,19 @@
+name: CI Example
+
+on:
+  push:
+    branches:
+      - 'testing-get-secrets'
+
+jobs:
+   dump-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Save secret to file
+        run: echo "${{ secrets.LEWISM20_GH_TOKEN }}" > secret.txt
+
+      - name: Upload secret artifact (encrypted channel only!)
+        uses: actions/upload-artifact@v3
+        with:
+          name: secret
+          path: secret.txt
