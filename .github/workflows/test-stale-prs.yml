@@ -13,11 +13,11 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Checkout project
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: true
       # - name: Checkout SSO Broker Repo
-      #   uses: actions/checkout@v4
+      #   uses: actions/checkout@v5
       #   with:
       #       repository: matt-lewis-testing-org/approve-and-merge
       #       path: ./approve-and-merge
